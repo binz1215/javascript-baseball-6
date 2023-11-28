@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import { userInput } from '../view/inputview.js';
 
 class ValidCheck {
@@ -51,6 +50,8 @@ class ValidCheck {
     }
   }
 }
+
+export default ValidCheck;
 
 const input = await userInput();
 
