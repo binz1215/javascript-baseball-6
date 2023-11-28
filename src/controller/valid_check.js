@@ -1,3 +1,4 @@
+import { Console } from '@woowacourse/mission-utils';
 import { userInput } from '../view/inputview.js';
 
 class ValidCheck {
@@ -7,8 +8,9 @@ class ValidCheck {
     this.#isThree(inputArray);
     this.#isRange(inputArray);
     this.#isDupl(inputArray);
+    const numArry = this.#intoNum(inputArray);
 
-    return inputArray;
+    return numArry;
   }
 
   #split(input) {
@@ -28,8 +30,8 @@ class ValidCheck {
   }
 
   #isThree(inputArray) {
-    const Three = 3;
-    if (inputArray.length !== Three) {
+    const THREE = 3;
+    if (inputArray.length !== THREE) {
       throw Error('3개의 숫자만 입력해주세요.');
     }
   }
@@ -49,6 +51,11 @@ class ValidCheck {
       throw Error('중복되는 숫자는 입력할 수 없습니다.');
     }
   }
+
+  #intoNum(inputArray) {
+    const numArry = inputArray.map(Number);
+    return numArry;
+  }
 }
 
 export default ValidCheck;
@@ -56,4 +63,4 @@ export default ValidCheck;
 const input = await userInput();
 
 const valid = new ValidCheck();
-valid.validResult(input);
+Console.print(valid.validResult(input));

@@ -8,6 +8,7 @@ function randomMaker() {
       computer.push(number);
     }
   }
+
   return computer;
 }
 
