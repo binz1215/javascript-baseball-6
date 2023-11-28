@@ -1,6 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
-import { userInput, restart } from '../view/inputview.js';
-
 class ValidCheck {
   validResult(input) {
     const inputArray = this.#split(input);

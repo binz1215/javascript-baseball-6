@@ -1,4 +1,3 @@
-import { Console } from '@woowacourse/mission-utils';
 import { userInput, restart } from '../view/inputview.js';
 import ValidCheck from './valid_check.js';
 import Print from '../view/outview.js';
@@ -27,7 +26,7 @@ class GamePlay {
 
   async #allGame() {
     const computer = randomMaker();
-    Console.print(computer);
+
     if (await this.#playResult(computer)) {
       return true;
     }
@@ -79,6 +78,3 @@ class GamePlay {
 }
 
 export default GamePlay;
-
-const play = new GamePlay();
-play.restartGame();
