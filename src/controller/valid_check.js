@@ -20,14 +20,14 @@ class ValidCheck {
 
   #isnumber(inputArray) {
     if (!inputArray.every((item) => !Number.isNaN(item))) {
-      throw Error('숫자가 아닌 값이 입력되었습니다.');
+      throw Error('[ERROR] 숫자가 아닌 값이 입력되었습니다.');
     }
   }
 
   #isThree(inputArray) {
     const THREE = 3;
     if (inputArray.length !== THREE) {
-      throw Error('3개의 숫자만 입력해 주세요.');
+      throw Error('[ERROR] 3개의 숫자만 입력해 주세요.');
     }
   }
 
@@ -35,7 +35,7 @@ class ValidCheck {
     const min = 1;
     const max = 9;
     if (!inputArray.every((item) => item >= min && item <= max)) {
-      throw Error('1~9 사이의 숫자만 입력해 주세요.');
+      throw Error('[ERROR] 1~9 사이의 숫자만 입력해 주세요.');
     }
   }
 
@@ -43,7 +43,7 @@ class ValidCheck {
     const set = new Set(inputArray);
 
     if (inputArray.length !== set.size) {
-      throw Error('중복되는 숫자는 입력할 수 없습니다.');
+      throw Error('[ERROR] 중복되는 숫자는 입력할 수 없습니다.');
     }
   }
 
@@ -58,14 +58,10 @@ class ValidCheck {
     const TWO = 2;
 
     if (Number.isNaN(num) || num > TWO || num < ONE) {
-      throw Error('1 또는 2의 숫자만 입력해 주세요.\n');
+      throw Error('[ERROR] 1 또는 2의 숫자만 입력해 주세요.\n');
     }
+    return num;
   }
 }
 
 export default ValidCheck;
-
-const input = await restart();
-
-const valid = new ValidCheck();
-Console.print(valid.isOneOrTwo(input));

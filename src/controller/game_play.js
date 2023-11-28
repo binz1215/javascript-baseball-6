@@ -6,12 +6,38 @@ import Print from '../view/outview.js';
 import { randomMaker } from '../model/random_maker.js';
 
 class GamePlay {
-  async playResult(computer) {
+  #print = new Print();
+
+  #valid = new ValidCheck();
+
+  async restartGame() {
+    this.#print.start();
+    let gameRuselt = await this.#allGame();
+    while (gameRuselt && (await this.#restartNum())) {
+      gameRuselt = await this.#allGame();
+    }
+  }
+
+  async #restartNum() {
+    const num = this.#valid.isOneOrTwo(await restart());
+    if (num === 1) {
+      return true;
+    }
+  }
+
+  async #allGame() {
+    const computer = randomMaker();
+    Console.print(computer);
+    if (await this.#playResult(computer)) {
+      return true;
+    }
+  }
+
+  async #playResult(computer) {
     let retry = true;
-    const valid = new ValidCheck();
+
     while (retry) {
-      const input = valid.validResult(await userInput());
-      Console.print(input);
+      const input = this.#valid.validResult(await userInput());
       const count = this.#compare(computer, input);
       if (this.#printResult(count)) {
         retry = false;
@@ -38,22 +64,21 @@ class GamePlay {
   #printResult(count) {
     const ZERO = 0;
     const THREE = 3;
-    const print = new Print();
 
-    if (count[0] === ZERO && count[1] === ZERO) return print.nothing();
-    if (count[0] === THREE) {
-      print.complete();
-      return true;
+    if (count[0] === ZERO && count[1] === ZERO) return this.#print.nothing();
+    if (count[0] === ZERO && count[1] !== ZERO) return this.#print.ball(count);
+    if (count[0] !== ZERO && count[1] === ZERO) {
+      this.#print.strike(count);
+      if (count[0] === THREE) {
+        this.#print.complete();
+        return true;
+      }
     }
-    if (count[0] === ZERO && count[1] !== ZERO) return print.ball(count);
-    if (count[0] !== ZERO && count[1] === ZERO) return print.strike(count);
-    if (count[0] !== ZERO && count[1] !== ZERO) return print.ballNstrike(count);
+    if (count[0] !== ZERO && count[1] !== ZERO) return this.#print.ballNstrike(count);
   }
 }
 
 export default GamePlay;
 
-const computer = randomMaker();
-Console.print(computer);
 const play = new GamePlay();
-play.playResult(computer);
+play.restartGame();
